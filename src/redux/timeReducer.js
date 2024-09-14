@@ -4,13 +4,13 @@ const initialState = {
   breakLength: 5,
   sessionLength: 25,
   timeLeft: 25 * 60, // set time in sec
-  isRun: true,
+  isRun: false,
   isBreak: false,
-  timerLabel: "Break",
+  timerLabel: "Session",
 }
 
 const timeReducer = (state = initialState, action) => {
-  const { breakLength, sessionLength, timeLeft, isRun, isBreak, timerLabel } = state;
+  const { breakLength, sessionLength, timeLeft, isRun, isBreak } = state;
 
 
   switch (action.type) {
