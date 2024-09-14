@@ -1,10 +1,13 @@
-import logo from './logo.svg';
+
 import './App.css';
+import TimerControls from './component/TimerControls';
+import TimerDisplay from './component/TimerDisplay';
 
 function App() {
   return (
-    <div >
-      hello react js
+    <div className='container'>
+      <TimerControls/>
+      <TimerDisplay/>
     </div>
   );
 }
