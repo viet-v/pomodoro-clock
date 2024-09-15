@@ -6,8 +6,9 @@ import TimerDisplay from './Components/TimerDisplay';
 function App() {
   return (
     <div className='container'>
-      <TimerControls/>
-      <TimerDisplay/>
+      <h1 className='title'>Pomodoro timer</h1>
+      <TimerDisplay />
+      <TimerControls />
     </div>
   );
 }

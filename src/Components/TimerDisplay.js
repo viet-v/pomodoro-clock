@@ -8,29 +8,29 @@ import { faPause } from '@fortawesome/free-solid-svg-icons';
 
 
 function TimerDisplay() {
-
+  // take value from redux
   const timeLeft = useSelector(state => state.timeLeft);
   const isRun = useSelector(state => state.isRun);
   const timerLabel = useSelector(state => state.timerLabel);
 
   const dispatch = useDispatch();
-  const [isPlayIcon, setIsPlayIcon] = useState(true);
+  const [isPlayIcon, setIsPlayIcon] = useState(true);// use to display Play icon and pause icon.
 
-  // handle click #start_stop
+  // handle click #start_stop 
   const handleClickStartPause = () => {
     if (isPlayIcon) {
       setIsPlayIcon(!isPlayIcon);
-      dispatch(playTime());
+      dispatch(playTime()); // dispatch action Play when click
     } else {
       setIsPlayIcon(!isPlayIcon);
-      dispatch(pauseTime());
+      dispatch(pauseTime());// dispatch action Pause when click
     }
   };
 
   // handle click reset btn
   const handleClickReset = () => {
     dispatch(resetTime());
-    setIsPlayIcon(true);
+    setIsPlayIcon(true);// ensure the icon will show play icon
     let audio = document.getElementById("beep");
     if (audio) {
       audio.pause(); // pause audio if user click reset
@@ -41,23 +41,22 @@ function TimerDisplay() {
   // function handle count down
   const handleCount = () => {
     const count = setInterval(() => {
-      dispatch(countDown())
-      console.log("run")
+      dispatch(countDown()) // dispatch action count down to update "timeLeft" once every second
     }, 1000)
-    return count
+    return count;
   }
 
   // handle when count down start and end
   useEffect(() => {
-    let count
+    let count;
     if (isRun) {
       count = handleCount();
-      console.log("run")
+      // console.log("run")
     } else {
-      clearInterval(count)// cleanup function when isRun change
-      console.log("stop")
+      clearInterval(count)// cleanup function when "isRun" change
+      // console.log("stop")
     }
-    return () => clearInterval(count); // ensure cleanup function when isRun change
+    return () => clearInterval(count); // ensure cleanup when "isRun" change
   }, [isRun, dispatch]);
 
   // handle play audio
@@ -69,12 +68,11 @@ function TimerDisplay() {
         audio.play()
       }
     }
-
   }, [timeLeft])
 
   // convert time
-  const min = Math.floor(timeLeft / 60);
-  const sec = timeLeft % 60;
+  const min = Math.floor(timeLeft / 60); // convert timeLeft to sec
+  const sec = timeLeft % 60; // convert timeLeft to sec
 
   return (
     <div className='box-time'>
@@ -87,6 +85,7 @@ function TimerDisplay() {
       </div>
       <div className="list-btn">
         <div id="start_stop" onClick={handleClickStartPause}>
+          {/* check isPlayIcon to show play icon or pause icon */}
           <span>{isPlayIcon ? <FontAwesomeIcon icon={faPlay} /> : <FontAwesomeIcon icon={faPause} />}</span>
         </div>
         <div id="reset"

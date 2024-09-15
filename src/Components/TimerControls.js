@@ -1,10 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { sessionDecrement, sessionIncrement, breakIncrement, breakDecrement } from '../actions/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 function TimerControls() {
+  // take value from redux
   const breakLength = useSelector(state => state.breakLength);
-  const  sessionLength = useSelector(state => state.sessionLength);
+  const sessionLength = useSelector(state => state.sessionLength);
 
   const dispatch = useDispatch()
 
@@ -16,17 +19,17 @@ function TimerControls() {
         </div>
         <div className="btn-control">
           <button id="break-decrement"
-           onClick={() => { dispatch(breakDecrement()) }}
+            onClick={() => { dispatch(breakDecrement()) }} // dispatch action break decrement when click
           >
-            <span>-</span>
+            <span><FontAwesomeIcon icon={faMinus} /></span>
           </button>
           <div className="btn-level" id="break-length">
             {breakLength}
           </div>
-          <button id="break-increment" 
-          onClick={() => { dispatch(breakIncrement()) }}
+          <button id="break-increment"
+            onClick={() => { dispatch(breakIncrement()) }}// dispatch action break increment when click
           >
-            <span>+</span>
+            <span><FontAwesomeIcon icon={faPlus} /></span>
           </button>
         </div>
       </div>
@@ -36,17 +39,17 @@ function TimerControls() {
         </div>
         <div className="btn-control">
           <button id="session-decrement"
-            onClick={() => { dispatch(sessionDecrement()) }}
+            onClick={() => { dispatch(sessionDecrement()) }}// dispatch action session decrement when click
           >
-            <span>-</span>
+            <span><FontAwesomeIcon icon={faMinus} /></span>
           </button>
           <div className="btn-level" id="session-length">
             {sessionLength}
           </div>
           <button id="session-increment"
-            onClick={() => { dispatch(sessionIncrement()) }}
+            onClick={() => { dispatch(sessionIncrement()) }}// dispatch action session increment when click
           >
-            <span>+</span>
+            <span><FontAwesomeIcon icon={faPlus} /></span>
           </button>
         </div>
       </div>

@@ -10,12 +10,13 @@ const initialState = {
 }
 
 const timeReducer = (state = initialState, action) => {
-  const { breakLength, sessionLength, timeLeft, isRun, isBreak } = state;
 
+  const { breakLength, sessionLength, timeLeft, isRun, isBreak } = state;
 
   switch (action.type) {
 
     case SESSION_DECREMENT:
+     // we can't change timeLeft value when "isRun": true, and if "isBreak":true  timeLeft shouldn't change value
       if (isRun) {
         return {
           ...state,
@@ -29,8 +30,8 @@ const timeReducer = (state = initialState, action) => {
         }
       }
 
-
     case SESSION_INCREMENT:
+      // we can't change timeLeft value when "isRun": true, and if "isBreak":true  timeLeft shouldn't change value
       if (isRun) {
         return {
           ...state,
@@ -45,21 +46,34 @@ const timeReducer = (state = initialState, action) => {
       }
 
     case BREAK_DECREMENT:
-      return {
-        ...state,
-        breakLength: isRun
-          ? breakLength : Math.max(breakLength - 1, 1),
-        timeLeft: !isRun && !isBreak || isRun
-          ? timeLeft : Math.max(breakLength - 1, 1) * 60,
+      // we can't change timeLeft value when "isRun": true, and if "isBreak":false  timeLeft shouldn't change value
+      if (isRun) {
+        return {
+          ...state,
+          breakLength: Math.max(breakLength - 1, 1),
+        }
+      } else {
+        return {
+          ...state,
+          breakLength: Math.max(breakLength - 1, 1),
+          timeLeft: !isBreak ? timeLeft : Math.max(breakLength - 1, 1) * 60,
+        }
       }
 
+
     case BREAK_INCREMENT:
-      return {
-        ...state,
-        breakLength: isRun
-          ? breakLength : Math.min(breakLength + 1, 60),
-        timeLeft: !isRun && !isBreak || isRun
-          ? timeLeft : Math.min(breakLength + 1, 60) * 60,
+      // we can't change timeLeft value when "isRun": true, and if "isBreak":false  timeLeft shouldn't change value
+      if (isRun) {
+        return {
+          ...state,
+          breakLength: Math.min(breakLength + 1, 60),
+        }
+      } else {
+        return {
+          ...state,
+          breakLength: Math.min(breakLength + 1, 60),
+          timeLeft: !isBreak ? timeLeft : Math.min(breakLength + 1, 60) * 60,
+        }
       }
 
     case RESET_TIME:
