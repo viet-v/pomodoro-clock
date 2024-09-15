@@ -14,7 +14,7 @@ body, html{
     gap: 2rem;
 }
 
-/* timerControls component */
+/* timerControls Components */
 .timer-control{
     display: flex;
     justify-content: center;
@@ -26,4 +26,15 @@ body, html{
     justify-content: center;
     align-items: center;
     gap: 1rem;
+}
+
+/* TimerDisplay component */
+.list-btn{
+    text-align: center;
+}
+
+#start_stop, #reset{
+    display: inline-block;
+    margin: 0 5px;
+    cursor: pointer;
 }

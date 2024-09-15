@@ -1,9 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { essionDecrement, essionIncrement, breakIncrement, breakDecrement } from '../actions/actions';
+import { sessionDecrement, sessionIncrement, breakIncrement, breakDecrement } from '../actions/actions';
 
 function TimerControls() {
-  const { breakLength, sessionLength} = useSelector(state => state);
+  const breakLength = useSelector(state => state.breakLength);
+  const  sessionLength = useSelector(state => state.sessionLength);
+
   const dispatch = useDispatch()
 
   return (
@@ -18,7 +20,7 @@ function TimerControls() {
           >
             <span>-</span>
           </button>
-          <div class="btn-level" id="break-length">
+          <div className="btn-level" id="break-length">
             {breakLength}
           </div>
           <button id="break-increment" 
@@ -34,15 +36,15 @@ function TimerControls() {
         </div>
         <div className="btn-control">
           <button id="session-decrement"
-            onClick={() => { dispatch(essionDecrement()) }}
+            onClick={() => { dispatch(sessionDecrement()) }}
           >
             <span>-</span>
           </button>
-          <div class="btn-level" id="session-length">
+          <div className="btn-level" id="session-length">
             {sessionLength}
           </div>
           <button id="session-increment"
-            onClick={() => { dispatch(essionIncrement()) }}
+            onClick={() => { dispatch(sessionIncrement()) }}
           >
             <span>+</span>
           </button>

@@ -1,7 +1,7 @@
 
 import './App.css';
-import TimerControls from './component/TimerControls';
-import TimerDisplay from './component/TimerDisplay';
+import TimerControls from './Components/TimerControls';
+import TimerDisplay from './Components/TimerDisplay';
 
 function App() {
   return (
