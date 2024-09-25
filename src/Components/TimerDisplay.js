@@ -1,20 +1,24 @@
-import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons/faArrowsRotate';
-import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { countDown, pauseTime, playTime, resetTime } from '../actions/actions';
 import { faPause } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
+import { countDown, pauseTime, playTime, resetTime } from '../actions/actions';
+import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons/faArrowsRotate';
 
 
 function TimerDisplay() {
+
   // take value from redux
-  const timeLeft = useSelector(state => state.timeLeft);
   const isRun = useSelector(state => state.isRun);
+  const timeLeft = useSelector(state => state.timeLeft);
   const timerLabel = useSelector(state => state.timerLabel);
+  const isBreak = useSelector(state => state.isBreak);
+
 
   const dispatch = useDispatch();
   const [isPlayIcon, setIsPlayIcon] = useState(true);// use to display Play icon and pause icon.
+
 
   // handle click #start_stop 
   const handleClickStartPause = () => {
@@ -61,6 +65,7 @@ function TimerDisplay() {
 
   // handle play audio
   useEffect(() => {
+    // play audio when time left = 0
     if (timeLeft === 0) {
       let audio = document.getElementById("beep");
       if (audio) {
@@ -68,7 +73,21 @@ function TimerDisplay() {
         audio.play()
       }
     }
-  }, [timeLeft])
+
+    // add active class
+    if (isBreak) {
+      document.getElementById("time-left").classList.add("active");
+    } else {
+      if (timeLeft === 10) {
+        document.getElementById("time-left").classList.add("active")
+      }
+
+      let activeClassTinme = document.querySelector(".active")
+      if (activeClassTinme) {
+        activeClassTinme.classList.remove("active");
+      }
+    }
+  }, [timeLeft,isBreak])
 
   // convert time
   const min = Math.floor(timeLeft / 60); // convert timeLeft to sec
@@ -76,7 +95,7 @@ function TimerDisplay() {
 
   return (
     <div className='box-time'>
-      <div id="timer-label">
+      <div id="timer-label" className={timerLabel === "Session" ? "" : "active-label"}>
         {timerLabel}
       </div>
       <div id="time-left">
