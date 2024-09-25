@@ -1,3 +1,4 @@
+import gsap from 'gsap';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { faPause } from '@fortawesome/free-solid-svg-icons';
@@ -74,23 +75,44 @@ function TimerDisplay() {
       }
     }
 
-    // add active class
-    if (isBreak) {
-      document.getElementById("time-left").classList.add("active");
-    } else {
-      if (timeLeft === 10) {
-        document.getElementById("time-left").classList.add("active")
-      }
+    // handle add animation and active class
 
-      let activeClassTinme = document.querySelector(".active")
-      if (activeClassTinme) {
-        activeClassTinme.classList.remove("active");
+    let timeLeftEl = document.getElementById("time-left")
+
+    if (timeLeft < 11 && timeLeft > 0) {
+      timeLeftEl.classList.add("active");
+
+      //set animation
+      gsap.fromTo("#time-left",
+        { scale: 1 },
+        {
+          scale: 1.2,
+          ease: "back.in(1)",
+          yoyo: true,
+          repeat: -1,
+        })
+
+    } else {
+      let active = document.querySelector(".active");//check active if it have already we remove them
+      if (active) {
+        timeLeftEl.classList.remove("active")
+        gsap.killTweensOf(timeLeftEl); // stop animation 
       }
     }
-  }, [timeLeft,isBreak])
+
+    // add color depend on label time
+    if (isBreak) {
+      timeLeftEl.classList.add("active-break");
+    } else {
+      let activeClassTinme = document.querySelector(".active-break")
+      if (activeClassTinme) {
+        activeClassTinme.classList.remove("active-break");
+      }
+    }
+  }, [timeLeft, isBreak])
 
   // convert time
-  const min = Math.floor(timeLeft / 60); // convert timeLeft to sec
+  const min = Math.floor(timeLeft / 60); // convert timeLeft to min
   const sec = timeLeft % 60; // convert timeLeft to sec
 
   return (

@@ -65,13 +65,13 @@ html {
 
 #time-left {
     font-size: 4rem;
-    color: var(--text-default);
+    color: var(--text-default) !important;
     font-family: "Inter", sans-serif;
 }
 
-#time-left.active,
-#timer-label.active-label{
-    color: var(--text-warm);
+#time-left.active-break,
+#timer-label.active-label {
+    color: var(--text-warm)  !important;
 }
 
 
@@ -150,6 +150,7 @@ html {
         font-size: 2.5rem;
         margin: 0;
     }
+
     .box-time {
         width: 360px;
     }
@@ -158,9 +159,10 @@ html {
 @media screen and (max-width:376px) {
     .box-time {
         width: 320px;
-    }   
+    }
 
-    #break-label, #session-label {
+    #break-label,
+    #session-label {
         font-size: 1.2rem;
         margin-bottom: 0.5rem;
     }

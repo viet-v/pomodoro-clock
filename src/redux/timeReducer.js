@@ -3,10 +3,10 @@ import { SESSION_DECREMENT, SESSION_INCREMENT, BREAK_INCREMENT, BREAK_DECREMENT,
 const initialState = {
   breakLength: 5,
   sessionLength: 25,
-  timeLeft: 13, // set time in sec
+  timeLeft: 11, // set time in sec
   isRun: false,
-  isBreak: true,
-  timerLabel: "Break",
+  isBreak: false,
+  timerLabel: "Session",
 }
 
 const timeReducer = (state = initialState, action) => {
