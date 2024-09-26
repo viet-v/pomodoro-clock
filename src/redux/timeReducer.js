@@ -3,7 +3,7 @@ import { SESSION_DECREMENT, SESSION_INCREMENT, BREAK_INCREMENT, BREAK_DECREMENT,
 const initialState = {
   breakLength: 5,
   sessionLength: 25,
-  timeLeft: 11, // set time in sec
+  timeLeft: 25 * 60, // set time in sec
   isRun: false,
   isBreak: false,
   timerLabel: "Session",
@@ -16,7 +16,7 @@ const timeReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case SESSION_DECREMENT:
-     // we can't change timeLeft value when "isRun": true, and if "isBreak":true  timeLeft shouldn't change value
+      // we can't change timeLeft value when "isRun": true, and if "isBreak":true  timeLeft shouldn't change value
       if (isRun) {
         return {
           ...state,

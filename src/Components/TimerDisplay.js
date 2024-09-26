@@ -77,28 +77,36 @@ function TimerDisplay() {
 
     // handle add animation and active class
 
-    let timeLeftEl = document.getElementById("time-left")
+    let timeLeftEl = document.getElementById("time-left");
 
-    if (timeLeft < 11 && timeLeft > 0) {
-      timeLeftEl.classList.add("active");
-
-      //set animation
-      gsap.fromTo("#time-left",
-        { scale: 1 },
-        {
-          scale: 1.2,
-          ease: "back.in(1)",
-          yoyo: true,
-          repeat: -1,
-        })
-
-    } else {
+    const removeActive = () => {
       let active = document.querySelector(".active");//check active if it have already we remove them
       if (active) {
         timeLeftEl.classList.remove("active")
         gsap.killTweensOf(timeLeftEl); // stop animation 
       }
     }
+    if (isRun) {
+      if (timeLeft < 11 && timeLeft > 0) {
+        timeLeftEl.classList.add("active");
+
+        //set animation
+        gsap.fromTo("#time-left",
+          { scale: 1 },
+          {
+            scale: 1.2,
+            ease: "back.in(1)",
+            yoyo: true,
+            repeat: -1,
+          })
+
+      } else {
+        removeActive();
+      }
+    } else {
+      removeActive();
+    }
+
 
     // add color depend on label time
     if (isBreak) {
@@ -109,7 +117,7 @@ function TimerDisplay() {
         activeClassTinme.classList.remove("active-break");
       }
     }
-  }, [timeLeft, isBreak])
+  }, [timeLeft, isBreak, isRun])
 
   // convert time
   const min = Math.floor(timeLeft / 60); // convert timeLeft to min
