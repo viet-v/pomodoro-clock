@@ -1,4 +1,4 @@
-#Pomodoro App is the idea from the FreeCodeCamp project.
+##Pomodoro App is the idea from the FreeCodeCamp project.
 
 ## The project was built using React, Redux, and the GSAP library.
 
