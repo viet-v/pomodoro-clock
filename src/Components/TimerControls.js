@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { sessionDecrement, sessionIncrement, breakIncrement, breakDecrement } from '../actions/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { sessionDecrement, sessionIncrement, breakIncrement, breakDecrement } from '../actions/actions';
 
 function TimerControls() {
   // take value from redux
