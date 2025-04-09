@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlay } from '@fortawesome/free-solid-svg-icons/faPlay';
 import { countDown, pauseTime, playTime, resetTime } from '../actions/actions';
 import { faArrowsRotate } from '@fortawesome/free-solid-svg-icons/faArrowsRotate';
+import audioFile from '../audio/level-up-noti-sound.mp3';
 
 
 function TimerDisplay() {
@@ -44,12 +45,12 @@ function TimerDisplay() {
   }
 
   // function handle count down
-  const handleCount = () => {
+  const handleCount = React.useCallback(() => {
     const count = setInterval(() => {
-      dispatch(countDown()) // dispatch action count down to update "timeLeft" once every second
-    }, 1000)
+      dispatch(countDown()); // dispatch action count down to update "timeLeft" once every second
+    }, 1000);
     return count;
-  }
+  }, [dispatch]);
 
   // handle when count down start and end
   useEffect(() => {
@@ -62,7 +63,7 @@ function TimerDisplay() {
       // console.log("stop")
     }
     return () => clearInterval(count); // ensure cleanup when "isRun" change
-  }, [isRun, dispatch]);
+  }, [isRun, handleCount]);
 
   // handle play audio
   useEffect(() => {
@@ -143,7 +144,7 @@ function TimerDisplay() {
           <span><FontAwesomeIcon icon={faArrowsRotate} /></span>
         </div>
       </div>
-      <audio id="beep" preload="auto" src='https://cdn.freecodecamp.org/testable-projects-fcc/audio/BeepSound.wav' ></audio>
+      <audio id="beep" preload="auto" src={audioFile}></audio>
     </div>
   );
 }
